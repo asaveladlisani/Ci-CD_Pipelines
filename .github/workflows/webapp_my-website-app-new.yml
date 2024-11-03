@@ -51,9 +51,10 @@ jobs:
           npm install
           npm run test --if-present
 
+
   deploy:
     runs-on: ubuntu-latest
-    needs: [build, test]  # Ensure tests pass before deploying
+    needs: [build, test]
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
