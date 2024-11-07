@@ -21,6 +21,14 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: npm install, build, and test
         run: |
           npm install
@@ -38,6 +46,14 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: npm test
         run: |
           npm run test --if-present
@@ -47,8 +63,6 @@ jobs:
         with:
           name: node-app
           path: .
-      
-    
 
   deploy:
     runs-on: ubuntu-latest
@@ -68,9 +82,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A38DA7C7467A4260BEA896EABD311CEA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C40BE0B80CC748CB9202AF55CE780100 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C6851911D2CE4EA987BAE897651A432D }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -79,4 +93,3 @@ jobs:
           app-name: 'NodeWebApp'
           slot-name: 'Production'
           package: .
-          
