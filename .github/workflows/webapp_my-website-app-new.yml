@@ -31,7 +31,7 @@ jobs:
           path: my-web-app/*
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
 
     steps:
@@ -53,7 +53,7 @@ jobs:
           path: my-web-app/*
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: test
     environment:
       name: 'Production'
