@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: my-web-app # Ensure you upload the right contents
+          path: my-web-app
 
   test:
     runs-on: windows-latest
@@ -39,8 +39,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: my-web-app/* # Ensure the path is correct
-
+          path: my-web-app
       - name: Run tests
         run: |
           cd my-web-app
