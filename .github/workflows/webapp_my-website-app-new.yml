@@ -43,6 +43,14 @@ jobs:
       - name: Run tests
         run: |
           cd my-web-app
+          
+          npm install react-scripts --save
+          rm -rf node_modules package-lock.json
+          npm install
+          npm cache clean --force
+          npm install -g npm
+          npm audit fix
+
           npm run test --if-present
 
       - name: Upload test results
