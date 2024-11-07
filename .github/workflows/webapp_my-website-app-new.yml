@@ -39,7 +39,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: my-web-app # Ensure the path is correct
+          path: my-web-app/* # Ensure the path is correct
 
       - name: Run tests
         run: |
@@ -65,7 +65,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: my-web-app
+          path: my-web-app/*
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
@@ -74,4 +74,4 @@ jobs:
           app-name: 'my-website-app-new'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5271FFBC676F41D786A795E67A1B1E29 }}
-          package: my-web-app
+          package: .
