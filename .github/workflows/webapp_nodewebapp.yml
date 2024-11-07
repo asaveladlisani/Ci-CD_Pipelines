@@ -16,6 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check for package.json
+        run: |
+          if [ ! -f package.json ]; then echo "package.json not found"; exit 1; fi
+
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
@@ -40,6 +44,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check for package.json
+        run: |
+          if [ ! -f package.json ]; then echo "package.json not found"; exit 1; fi
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
