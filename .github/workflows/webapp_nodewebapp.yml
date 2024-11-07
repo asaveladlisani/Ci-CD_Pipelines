@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check for package.json
+        shell: bash
         run: |
           if [ ! -f package.json ]; then echo "package.json not found"; exit 1; fi
 
@@ -46,6 +47,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check for package.json
+        shell: bash
         run: |
           if [ ! -f package.json ]; then echo "package.json not found"; exit 1; fi
 
