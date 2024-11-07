@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: my-web-app/* # Ensure you upload the right contents
+          path: my-web-app/*
 
   test:
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: my-web-app/test-results # Adjust the path to your test results
+          path: my-web-app/src/App.test.js
 
   deploy:
     runs-on: ubuntu-latest
