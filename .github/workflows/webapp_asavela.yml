@@ -28,10 +28,16 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: List files before zipping
+        run: ls -la my-web-app
+
       - name: Zip artifact for deployment
         run: |
           cd my-web-app
           zip release.zip ./* -r
+
+      - name: List files after zipping
+        run: ls -la my-web-app
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
