@@ -43,7 +43,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: my-web-app/release.zip
+
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: node-app
+
 
       - uses: actions/checkout@v4
       - name: Build the Docker image
