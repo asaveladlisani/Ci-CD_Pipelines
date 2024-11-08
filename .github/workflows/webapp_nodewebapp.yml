@@ -1,4 +1,7 @@
-name: Build and deploy Node.js app to Azure Web App - NodeWebApp
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Node.js app to Azure Web App - my-website-app-new
 
 on:
   push:
@@ -20,58 +23,35 @@ jobs:
 
       - name: npm install, build, and test
         run: |
+          cd my-web-app
           npm install
           npm run build --if-present
-
+          npm run test --if-present
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: my-web-app/* # Ensure you upload the right contents
 
-          
-  test:
-    runs-on: windows-latest
-    needs: build
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-
-      - name: npm test
-        run: |
-          npm run test --if-present
-      
   deploy:
     runs-on: ubuntu-latest
-    needs: [build, test]
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A38DA7C7467A4260BEA896EABD311CEA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C40BE0B80CC748CB9202AF55CE780100 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C6851911D2CE4EA987BAE897651A432D }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'NodeWebApp'
+          app-name: 'my-website-app-new'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5271FFBC676F41D786A795E67A1B1E29 }}
           package: .
