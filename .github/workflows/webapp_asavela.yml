@@ -36,6 +36,10 @@ jobs:
           name: node-app
           path: release.zip
 
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag mydockrepo:$(date +%s)
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
